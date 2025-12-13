@@ -7,6 +7,10 @@ import { isValidEmail } from "@/lib/date-utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { toast } from "sonner";
+
+
+
 import {
     Select,
     SelectContent,
@@ -69,6 +73,22 @@ export function AddUserForm({ onSuccess }: AddUserFormProps) {
         });
     }, [password, fullName, role, position]);
 
+    const resetForm = () => {
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setRole("");
+        setPosition("");
+        setErr("");
+        setErrors({
+            fullName: "",
+            email: "",
+            password: "",
+            role: "",
+            position: "",
+        });
+    };
+
     const addUser = async () => {
         try {
             setIsLoading(true);
@@ -79,12 +99,15 @@ export function AddUserForm({ onSuccess }: AddUserFormProps) {
                     email: email,
                     password: password,
                     role: role,
+                    position: position,
                 },
                 {
                     withCredentials: true,
                 }
             );
             setIsLoading(false);
+            toast.success("User added successfully");
+            resetForm();
             onSuccess?.();
         } catch (error: unknown) {
             const axiosError = error as { response?: { data?: { message?: string } } };
