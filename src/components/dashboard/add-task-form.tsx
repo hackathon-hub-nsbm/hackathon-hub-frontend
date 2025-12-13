@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Loader2, Plus, X, XCircle } from "lucide-react";
+import { toast } from "sonner";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,17 +93,17 @@ export function AddTaskForm() {
         const payload = { title, description, assigneeIds, subTasks };
 
         if (title === "" || description === "" || subTasks.length < 1) {
-            alert("Main Task title, Description, and at least 1 subtask required.");
+            toast.error("Main Task title, Description, and at least 1 subtask required.");
             return;
         }
 
         if (assigneeIds.length < 1) {
-            alert("Task should have at least one assignee.");
+            toast.error("Task should have at least one assignee.");
             return;
         }
 
         if (subTasks[0].title === "") {
-            alert("Subtask title is empty.");
+            toast.error("Subtask title is empty.");
             return;
         }
 
@@ -112,7 +113,7 @@ export function AddTaskForm() {
             .post("/api/v1/task", payload, { withCredentials: true })
             .then((res) => {
                 if (res.data.success) {
-                    alert("Task created successfully!");
+                    toast.success("Task created successfully!");
                     setTitle("");
                     setDescription("");
                     setAssigneeIds([]);
@@ -120,12 +121,12 @@ export function AddTaskForm() {
                         { title: "", description: "", assigneeIds: [], searchQuery: "" },
                     ]);
                 } else {
-                    alert("Failed to create task: " + res.data.message);
+                    toast.error("Failed to create task: " + res.data.message);
                 }
             })
             .catch((err) => {
                 console.error("Error creating task:", err);
-                alert("Error creating task.");
+                toast.error("Error creating task.");
             })
             .finally(() => setIsLoading(false));
     };

@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { X, Image as ImageIcon, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,7 +42,10 @@ export function CreatePostForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!text && !image) return alert("Please add a caption or image.");
+        if (!text && !image) {
+            toast.error("Please add a caption or image.");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("caption", text);
@@ -58,15 +62,15 @@ export function CreatePostForm() {
             });
 
             if (response.data.success) {
-                alert("Post created successfully!");
+                toast.success("Post created successfully!");
                 setText("");
                 removeImage();
             } else {
-                alert("Failed to create post: " + response.data.message);
+                toast.error("Failed to create post: " + response.data.message);
             }
         } catch (err) {
             console.error(err);
-            alert("Error creating post.");
+            toast.error("Error creating post.");
         } finally {
             setLoading(false);
         }

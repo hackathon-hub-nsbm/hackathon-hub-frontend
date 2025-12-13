@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import useAuthStore from "@/store/auth-store";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
@@ -51,7 +52,7 @@ export default function ProfilePage() {
                 { withCredentials: true }
             )
             .then(() => {
-                alert("Password Changed Successfully.");
+                toast.success("Password Changed Successfully.");
                 setNewPassword("");
             })
             .catch((err) => {
