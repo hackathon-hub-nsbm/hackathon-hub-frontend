@@ -19,7 +19,7 @@ export function DashboardSideNav() {
     const navItems = [
         { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
         { href: "/dashboard/tasks", icon: ListChecks, label: "Tasks" },
-        { href: "/dashboard/posts/create", icon: PlusSquare, label: "Create Post" },
+        // { href: "/dashboard/posts/create", icon: PlusSquare, label: "Create Post" },
         { href: "/dashboard/users", icon: Users, label: "Users" },
         { href: "/dashboard/profile", icon: User, label: "Profile" },
     ];

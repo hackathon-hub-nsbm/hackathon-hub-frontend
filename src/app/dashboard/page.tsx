@@ -60,7 +60,7 @@ export default function DashboardPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer">
+                    {/* <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer">
                         <CardContent className="flex flex-col items-center justify-center gap-3 p-5">
                             <div className="flex items-center gap-2">
                                 <Images className="h-5 w-5 text-blue-500" />
@@ -72,7 +72,7 @@ export default function DashboardPage() {
                                 {dashboardData?.totalPosts ?? 0}
                             </h1>
                         </CardContent>
-                    </Card>
+                    </Card> */}
                 </div>
 
                 <div className="mt-8">

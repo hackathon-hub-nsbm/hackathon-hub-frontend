@@ -36,13 +36,13 @@ export function SideBarMenu() {
 
                 {isAuthenticated && (
                     <>
-                        <Link
+                        {/* <Link
                             href="/dashboard/posts/create"
                             className="flex items-center gap-4 cursor-pointer"
                         >
                             <PlusSquare className="h-6 w-6" />
                             <span className="text-md">Create</span>
-                        </Link>
+                        </Link> */}
 
                         <Link
                             href="/dashboard/profile"

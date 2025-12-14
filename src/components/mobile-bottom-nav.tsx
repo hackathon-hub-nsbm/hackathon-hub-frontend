@@ -44,7 +44,7 @@ export function MobileBottomNav() {
                 </Link>
             </div>
 
-            {isAuthenticated && (
+            {/* {isAuthenticated && (
                 <div className="w-full flex items-center justify-between">
                     <Link
                         className={cn(
@@ -58,7 +58,7 @@ export function MobileBottomNav() {
                         <PlusSquare className="h-6 w-6" />
                     </Link>
                 </div>
-            )}
+            )} */}
 
             <div className="w-full flex items-center justify-between">
                 <Link

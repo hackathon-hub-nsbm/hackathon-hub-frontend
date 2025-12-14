@@ -14,7 +14,7 @@ export * from "@/components/ui/alert-dialog";
 // Custom Components
 export { LoginForm } from "@/components/login-form";
 export { ProtectedRoute } from "@/components/protected-route";
-export { PostsSection } from "@/components/posts-section";
+// export { PostsSection } from "@/components/posts-section";
 export { ConfirmDialog } from "@/components/confirm-dialog";
 export { Loader } from "@/components/loader";
 export { SideBarMenu } from "@/components/sidebar-menu";
@@ -28,4 +28,4 @@ export { DashboardBottomNav } from "@/components/dashboard/dashboard-bottom-nav"
 export { AddUserForm } from "@/components/dashboard/add-user-form";
 export { AddTaskForm } from "@/components/dashboard/add-task-form";
 export { TaskList, TaskCard } from "@/components/dashboard/task-list";
-export { CreatePostForm } from "@/components/dashboard/create-post-form";
+// export { CreatePostForm } from "@/components/dashboard/create-post-form";

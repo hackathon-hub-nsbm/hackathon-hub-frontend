@@ -19,7 +19,7 @@ export function DashboardBottomNav() {
     const navItems = [
         { href: "/dashboard", icon: LayoutDashboard },
         { href: "/dashboard/tasks", icon: ListChecks },
-        { href: "/dashboard/posts/create", icon: PlusSquare },
+        // { href: "/dashboard/posts/create", icon: PlusSquare },
         { href: "/dashboard/users", icon: Users },
         { href: "/dashboard/profile", icon: User },
     ];
