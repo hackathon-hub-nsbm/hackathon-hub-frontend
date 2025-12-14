@@ -89,23 +89,56 @@ interface TaskListProps {
     tasks: Task[];
 }
 
+function isTaskFinished(task: Task): boolean {
+    if (task.completed) return true;
+    if (task.subTasks.length > 0) {
+        return task.subTasks.every((s) => s.completed);
+    }
+    return false;
+}
+
 export function TaskList({ tasks }: TaskListProps) {
     const { user } = useAuthStore();
     const canCreateTask = user?.role === "ADMIN" || user?.role === "EDITOR";
 
+    const unfinishedTasks = tasks.filter((task) => !isTaskFinished(task));
+    const finishedTasks = tasks.filter((task) => isTaskFinished(task));
+
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {tasks.map((task) => (
-                <TaskCard key={task.id} task={task} />
-            ))}
-            {canCreateTask && (
-                <Link href="/dashboard/tasks/add">
-                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-30">
-                        <CardContent className="flex items-center justify-center p-5">
-                            <Plus className="h-10 w-10 text-gray-300" />
-                        </CardContent>
-                    </Card>
-                </Link>
+        <div className="w-full space-y-8">
+            <div>
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-yellow-500" />
+                    In Progress ({unfinishedTasks.length})
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {unfinishedTasks.map((task) => (
+                        <TaskCard key={task.id} task={task} />
+                    ))}
+                    {canCreateTask && (
+                        <Link href="/dashboard/tasks/add">
+                            <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-30">
+                                <CardContent className="flex items-center justify-center p-5">
+                                    <Plus className="h-10 w-10 text-gray-300" />
+                                </CardContent>
+                            </Card>
+                        </Link>
+                    )}
+                </div>
+            </div>
+
+            {finishedTasks.length > 0 && (
+                <div>
+                    <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                        Completed ({finishedTasks.length})
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {finishedTasks.map((task) => (
+                            <TaskCard key={task.id} task={task} />
+                        ))}
+                    </div>
+                </div>
             )}
         </div>
     );
