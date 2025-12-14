@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const lato = Lato({
-  weight: ["100", "300", "400", "700", "900"],
+const lato = IBM_Plex_Sans({
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Hackathon Hub",
-  description: "Hackathon Hub Platform",
+  description: "A community for competitve programmers at NSBM Green University.",
 };
 
 export default function RootLayout({

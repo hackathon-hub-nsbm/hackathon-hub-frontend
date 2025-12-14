@@ -29,6 +29,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
           "--border-radius": "var(--radius)",
+          "--font-family": "var(--font-ibm-plex-sans, 'IBM Plex Sans', system-ui, sans-serif)",
         } as CSSProperties
       }
       {...props}
