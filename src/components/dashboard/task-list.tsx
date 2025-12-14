@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Plus, CheckCircle, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -100,12 +101,35 @@ function isTaskFinished(task: Task): boolean {
 export function TaskList({ tasks }: TaskListProps) {
     const { user } = useAuthStore();
     const canCreateTask = user?.role === "ADMIN" || user?.role === "EDITOR";
+    const [showOnlyMyTasks, setShowOnlyMyTasks] = useState(false);
 
-    const unfinishedTasks = tasks.filter((task) => !isTaskFinished(task));
-    const finishedTasks = tasks.filter((task) => isTaskFinished(task));
+    const filteredTasks = showOnlyMyTasks
+        ? tasks.filter((task) =>
+            task.taskAssignees?.some((assignee) => assignee.id === user?.id)
+        )
+        : tasks;
+
+    const unfinishedTasks = filteredTasks.filter((task) => !isTaskFinished(task));
+    const finishedTasks = filteredTasks.filter((task) => isTaskFinished(task));
 
     return (
         <div className="w-full space-y-8">
+            <div className="flex items-center gap-2 mb-4">
+                <input
+                    type="checkbox"
+                    id="showOnlyMyTasks"
+                    checked={showOnlyMyTasks}
+                    onChange={(e) => setShowOnlyMyTasks(e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label
+                    htmlFor="showOnlyMyTasks"
+                    className="text-sm font-medium text-gray-700 cursor-pointer"
+                >
+                My Tasks
+                </label>
+            </div>
+
             <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <Clock className="h-5 w-5 text-yellow-500" />
