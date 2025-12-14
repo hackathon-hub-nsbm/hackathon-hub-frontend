@@ -9,11 +9,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Task } from "@/types";
+import { ConfirmDialog } from "@/components";
 
 export default function TaskPage() {
     const params = useParams();
     const taskId = params.taskid as string;
     const [task, setTask] = useState<Task | null>(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [subtaskToComplete, setSubtaskToComplete] = useState<string | null>(null);
 
     const fetchTask = () => {
         api
@@ -36,15 +39,16 @@ export default function TaskPage() {
         );
     }
 
-    const completeSubtask = (taskId: string, subtaskId: string) => {
-        const userConfirmed = window.confirm(
-            "Do you want to mark this sub task as complete?"
-        );
+    const handleCompleteClick = (subtaskId: string) => {
+        setSubtaskToComplete(subtaskId);
+        setConfirmOpen(true);
+    };
 
-        if (userConfirmed) {
+    const handleConfirmComplete = () => {
+        if (subtaskToComplete) {
             api
                 .put(
-                    `/api/v1/task/${taskId}/subtasks/${subtaskId}/complete`,
+                    `/api/v1/task/${task.id}/subtasks/${subtaskToComplete}/complete`,
                     {},
                     { withCredentials: true }
                 )
@@ -55,6 +59,13 @@ export default function TaskPage() {
                     console.error(err);
                 });
         }
+        setConfirmOpen(false);
+        setSubtaskToComplete(null);
+    };
+
+    const handleCancelComplete = () => {
+        setConfirmOpen(false);
+        setSubtaskToComplete(null);
     };
 
     return (
@@ -126,7 +137,7 @@ export default function TaskPage() {
                                     {!subtask.completed && (
                                         <Button
                                             size="sm"
-                                            onClick={() => completeSubtask(task.id, subtask.id)}
+                                            onClick={() => handleCompleteClick(subtask.id)}
                                         >
                                             Mark as completed
                                         </Button>
@@ -164,6 +175,14 @@ export default function TaskPage() {
                     ))}
                 </CardContent>
             </Card>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={handleConfirmComplete}
+                onCancel={handleCancelComplete}
+                title="Complete Subtask"
+                message="Do you want to mark this sub task as complete?"
+            />
         </div>
     );
 }

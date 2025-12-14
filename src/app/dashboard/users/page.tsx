@@ -16,9 +16,12 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { User } from "@/store/auth-store";
+import { ConfirmDialog } from "@/components";
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
     const getAllUsers = () => {
         api
@@ -33,17 +36,29 @@ export default function UsersPage() {
             });
     };
 
-    const deleteUser = (userId: string) => {
-        if (window.confirm("You want to delete this user?")) {
+    const handleDeleteClick = (userId: string) => {
+        setUserToDelete(userId);
+        setConfirmOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (userToDelete) {
             api
-                .delete(`/api/v1/user/${userId}`, { withCredentials: true })
+                .delete(`/api/v1/user/${userToDelete}`, { withCredentials: true })
                 .then(() => {
-                    setUsers(users.filter((user) => user.id !== userId));
+                    setUsers(users.filter((user) => user.id !== userToDelete));
                 })
                 .catch((err) => {
                     console.error("Error deleting user:", err);
                 });
         }
+        setConfirmOpen(false);
+        setUserToDelete(null);
+    };
+
+    const handleCancelDelete = () => {
+        setConfirmOpen(false);
+        setUserToDelete(null);
     };
 
     useEffect(() => {
@@ -85,7 +100,7 @@ export default function UsersPage() {
                                             variant="ghost"
                                             size="sm"
                                             className="text-red-500 hover:text-red-700"
-                                            onClick={() => deleteUser(user.id!)}
+                                            onClick={() => handleDeleteClick(user.id!)}
                                         >
                                             Delete
                                         </Button>
@@ -120,7 +135,7 @@ export default function UsersPage() {
                                     variant="ghost"
                                     size="icon"
                                     className="text-red-400 hover:text-red-500"
-                                    onClick={() => deleteUser(user.id!)}
+                                    onClick={() => handleDeleteClick(user.id!)}
                                 >
                                     <Trash2 className="h-5 w-5" />
                                 </Button>
@@ -129,6 +144,14 @@ export default function UsersPage() {
                     ))}
                 </div>
             </div>
+
+            <ConfirmDialog
+                open={confirmOpen}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                title="Delete User"
+                message="You want to delete this user?"
+            />
         </div>
     );
 }
