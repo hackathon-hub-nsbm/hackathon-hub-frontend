@@ -15,11 +15,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { User } from "@/store/auth-store";
+import useAuthStore, { User } from "@/store/auth-store";
 import { ConfirmDialog } from "@/components";
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
+    const { user: currentUser } = useAuthStore();
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
@@ -86,7 +87,7 @@ export default function UsersPage() {
                                 <TableHead>Full Name</TableHead>
                                 <TableHead>Email</TableHead>
                                 <TableHead>Role</TableHead>
-                                <TableHead>Actions</TableHead>
+                                {currentUser?.role === "ADMIN" && <TableHead>Actions</TableHead>}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -95,16 +96,18 @@ export default function UsersPage() {
                                     <TableCell>{user.username}</TableCell>
                                     <TableCell>{user.email}</TableCell>
                                     <TableCell>{user.role}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            className="text-red-500 hover:text-red-700"
-                                            onClick={() => handleDeleteClick(user.id!)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </TableCell>
+                                    {currentUser?.role === "ADMIN" && (
+                                        <TableCell>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="text-red-500 hover:text-red-700"
+                                                onClick={() => handleDeleteClick(user.id!)}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    )}
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -131,14 +134,16 @@ export default function UsersPage() {
                                         </span>
                                     </div>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="text-red-400 hover:text-red-500"
-                                    onClick={() => handleDeleteClick(user.id!)}
-                                >
-                                    <Trash2 className="h-5 w-5" />
-                                </Button>
+                                {currentUser?.role === "ADMIN" && (
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="text-red-400 hover:text-red-500"
+                                        onClick={() => handleDeleteClick(user.id!)}
+                                    >
+                                        <Trash2 className="h-5 w-5" />
+                                    </Button>
+                                )}
                             </CardContent>
                         </Card>
                     ))}
