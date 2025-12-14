@@ -13,15 +13,19 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task }: TaskCardProps) {
+    const { user } = useAuthStore();
     const completedSubtasks = task.subTasks.filter((s) => s.completed).length;
     const allSubtasksCompleted =
         task.subTasks.length > 0 && completedSubtasks === task.subTasks.length;
 
     const assignees = task.taskAssignees ?? [];
+    const isAssignedToCurrentUser = assignees.some(
+        (assignee) => assignee.id === user?.id
+    );
 
     return (
         <Link href={`/dashboard/tasks/${task.id}`}>
-            <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-50">
+            <Card className={`hover:shadow-md transition-shadow duration-300 cursor-pointer group h-50 ${isAssignedToCurrentUser ? "border-2 border-blue-500 bg-blue-50" : ""}`}>
                 <CardContent className="p-5">
                     <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-2">
