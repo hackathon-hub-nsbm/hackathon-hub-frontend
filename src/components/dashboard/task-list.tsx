@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Plus, CheckCircle, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Task } from "@/types";
 import { truncateStr } from "@/lib/date-utils";
 import useAuthStore from "@/store/auth-store";
@@ -15,6 +16,8 @@ export function TaskCard({ task }: TaskCardProps) {
     const completedSubtasks = task.subTasks.filter((s) => s.completed).length;
     const allSubtasksCompleted =
         task.subTasks.length > 0 && completedSubtasks === task.subTasks.length;
+
+    const assignees = task.taskAssignees ?? [];
 
     return (
         <Link href={`/dashboard/tasks/${task.id}`}>
@@ -39,6 +42,23 @@ export function TaskCard({ task }: TaskCardProps) {
                             )}
                         </div>
                     </div>
+
+                    {assignees.length > 0 && (
+                        <div className="flex items-center mt-3 -space-x-2 flex-wrap">
+                            {assignees.map((assignee) => (
+                                <Avatar
+                                    key={assignee.id}
+                                    className="h-7 w-7 border-2 border-white"
+                                >
+                                    <AvatarFallback className="text-xs bg-blue-100 text-blue-600">
+                                        {assignee.username
+                                            ?.substring(0, 2)
+                                            .toUpperCase() ?? "?"}
+                                    </AvatarFallback>
+                                </Avatar>
+                            ))}
+                        </div>
+                    )}
 
                     {task.subTasks.length > 0 && (
                         <div className="mt-4">
