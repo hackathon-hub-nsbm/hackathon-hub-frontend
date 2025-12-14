@@ -5,6 +5,7 @@ import { Plus, CheckCircle, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Task } from "@/types";
 import { truncateStr } from "@/lib/date-utils";
+import useAuthStore from "@/store/auth-store";
 
 interface TaskCardProps {
     task: Task;
@@ -65,18 +66,23 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks }: TaskListProps) {
+    const { user } = useAuthStore();
+    const canCreateTask = user?.role === "ADMIN" || user?.role === "EDITOR";
+
     return (
         <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {tasks.map((task) => (
                 <TaskCard key={task.id} task={task} />
             ))}
-            <Link href="/dashboard/tasks/add">
-                <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-30">
-                    <CardContent className="flex items-center justify-center p-5">
-                        <Plus className="h-10 w-10 text-gray-300" />
-                    </CardContent>
-                </Card>
-            </Link>
+            {canCreateTask && (
+                <Link href="/dashboard/tasks/add">
+                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-30">
+                        <CardContent className="flex items-center justify-center p-5">
+                            <Plus className="h-10 w-10 text-gray-300" />
+                        </CardContent>
+                    </Card>
+                </Link>
+            )}
         </div>
     );
 }
