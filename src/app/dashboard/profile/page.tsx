@@ -85,7 +85,9 @@ export default function ProfilePage() {
                             className={
                                 user?.role === "ADMIN"
                                     ? "bg-green-200 text-green-500 hover:bg-green-200"
-                                    : "bg-blue-200 text-blue-500 hover:bg-blue-200"
+                                    : user?.role === "VOLUNTEER"
+                                        ? "bg-purple-200 text-purple-500 hover:bg-purple-200"
+                                        : "bg-blue-200 text-blue-500 hover:bg-blue-200"
                             }
                         >
                             {user?.role}

@@ -209,16 +209,14 @@ export function AddUserForm({ onSuccess }: AddUserFormProps) {
             </div>
 
             <div className="flex flex-col gap-1">
-                <Select onValueChange={setPosition} disabled={isLoading}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select Position" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="President">President</SelectItem>
-                        <SelectItem value="Vice President">Vice President</SelectItem>
-                        <SelectItem value="Member">Member</SelectItem>
-                    </SelectContent>
-                </Select>
+                <Input
+                    type="text"
+                    placeholder="Position"
+                    name="position"
+                    onChange={(e) => setPosition(e.target.value)}
+                    value={position}
+                    disabled={isLoading}
+                />
                 <span className="text-sm font-light text-red-500">
                     {errors.position}
                 </span>
@@ -232,6 +230,7 @@ export function AddUserForm({ onSuccess }: AddUserFormProps) {
                     <SelectContent>
                         <SelectItem value="ADMIN">Admin</SelectItem>
                         <SelectItem value="EDITOR">Editor</SelectItem>
+                        <SelectItem value="VOLUNTEER">Volunteer</SelectItem>
                     </SelectContent>
                 </Select>
                 <span className="text-sm font-light text-red-500">{errors.role}</span>
