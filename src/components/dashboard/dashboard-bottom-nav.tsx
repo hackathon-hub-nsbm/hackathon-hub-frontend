@@ -25,7 +25,7 @@ export function DashboardBottomNav() {
     ];
 
     return (
-        <div className="fixed flex md:hidden items-center bottom-0 left-0 right-0 w-full h-[70px] bg-primary z-50">
+        <div className="fixed flex md:hidden items-center bottom-0 left-0 right-0 w-full h-17.5 bg-primary z-50">
             <div className="w-full flex items-center justify-between">
                 {navItems.map((item) => (
                     <Link

@@ -21,7 +21,7 @@ export function DashboardTopBar() {
     };
 
     return (
-        <div className="fixed top-0 left-0 right-0 bg-secondary w-full h-[70px] flex items-center border-b shadow-sm border-gray-200 z-40">
+        <div className="fixed top-0 left-0 right-0 bg-secondary w-full h-17.5 flex items-center border-b shadow-sm border-gray-200 z-40">
             <div className="w-full flex items-center justify-between px-4">
                 <div className="font-bold text-lg">Hackathon Hub</div>
 
@@ -34,7 +34,7 @@ export function DashboardTopBar() {
 
                     <Search className="h-5 w-5 block md:hidden cursor-pointer" />
 
-                    <Button variant="secondary" className="hidden md:block" onClick={logout}>
+                    <Button variant="secondary" className="hidden md:block cursor-pointer" onClick={logout}>
                         Logout
                     </Button>
 

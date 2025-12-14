@@ -13,7 +13,7 @@ export default function DashboardLayout({
             <div className="bg-secondary">
                 <DashboardTopBar />
                 <DashboardSideNav />
-                <div className="bg-secondary min-h-screen pt-[80px] md:ml-[250px] pb-[100px] px-4">
+                <div className="bg-secondary min-h-screen pt-20 md:ml-62.5 pb-25 px-4">
                     {children}
                 </div>
                 <DashboardBottomNav />

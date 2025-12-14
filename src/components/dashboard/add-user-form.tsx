@@ -158,7 +158,7 @@ export function AddUserForm({ onSuccess }: AddUserFormProps) {
 
     return (
         <form
-            className="flex flex-col gap-4 w-full max-w-[400px] mt-8"
+            className="flex flex-col gap-4 w-full max-w-100 mt-8"
             onSubmit={handleSubmit}
         >
             {err && (

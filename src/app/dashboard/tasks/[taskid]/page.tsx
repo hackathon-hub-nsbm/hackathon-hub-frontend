@@ -71,7 +71,7 @@ export default function TaskPage() {
     return (
         <div className="w-full space-y-4">
             {/* Main Task */}
-            <Card className="hover:shadow-xl transition-shadow duration-300">
+            <Card className="hover:shadow-md transition-shadow duration-300">
                 <CardContent className="p-5">
                     <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold">{task.title}</h1>
@@ -86,7 +86,7 @@ export default function TaskPage() {
             </Card>
 
             {/* Main Task Assignees */}
-            <Card className="hover:shadow-xl transition-shadow duration-300">
+            <Card className="hover:shadow-md transition-shadow duration-300">
                 <CardHeader>
                     <CardTitle className="text-lg">Assignees</CardTitle>
                 </CardHeader>
@@ -113,7 +113,7 @@ export default function TaskPage() {
             </Card>
 
             {/* Subtasks */}
-            <Card className="hover:shadow-xl transition-shadow duration-300">
+            <Card className="hover:shadow-md transition-shadow duration-300">
                 <CardHeader>
                     <CardTitle className="text-lg">Subtasks</CardTitle>
                 </CardHeader>

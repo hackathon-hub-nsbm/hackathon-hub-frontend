@@ -17,7 +17,7 @@ export function TaskCard({ task }: TaskCardProps) {
 
     return (
         <Link href={`/dashboard/tasks/${task.id}`}>
-            <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
+            <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-50">
                 <CardContent className="p-5">
                     <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-2">
@@ -66,12 +66,12 @@ interface TaskListProps {
 
 export function TaskList({ tasks }: TaskListProps) {
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {tasks.map((task) => (
                 <TaskCard key={task.id} task={task} />
             ))}
             <Link href="/dashboard/tasks/add">
-                <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-[120px]">
+                <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer group h-full flex items-center justify-center min-h-30">
                     <CardContent className="flex items-center justify-center p-5">
                         <Plus className="h-10 w-10 text-gray-300" />
                     </CardContent>

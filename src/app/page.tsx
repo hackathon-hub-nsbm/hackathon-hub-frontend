@@ -18,7 +18,7 @@ export default function Home() {
     <div className="text-secondary">
       <MobileTopBar />
       <SideBarMenu />
-      <div className="bg-primary min-h-screen mt-[70px] md:mt-0">
+      <div className="bg-primary min-h-screen mt-17.5 md:mt-0">
         <PostsSection />
       </div>
       <MobileBottomNav />

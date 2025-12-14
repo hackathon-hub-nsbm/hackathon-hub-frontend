@@ -198,7 +198,7 @@ export function AddTaskForm() {
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => deleteSubTask(i)}
-                                className="absolute top-[-10px] right-[-10px]"
+                                className="absolute -top-2.5 -right-2.5"
                                 disabled={isLoading}
                             >
                                 <XCircle className="h-6 w-6 text-gray-500 hover:text-red-500" />

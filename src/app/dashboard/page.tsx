@@ -31,8 +31,8 @@ export default function DashboardPage() {
 
             <div className="mt-8">
                 <h2 className="font-semibold text-lg mb-4">Key Metrics</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer">
                         <CardContent className="flex flex-col items-center justify-center gap-3 p-5">
                             <div className="flex items-center gap-2">
                                 <Users className="h-5 w-5 text-blue-500" />
@@ -46,7 +46,7 @@ export default function DashboardPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer">
                         <CardContent className="flex flex-col items-center justify-center gap-3 p-5">
                             <div className="flex items-center gap-2">
                                 <ListChecks className="h-5 w-5 text-blue-500" />
@@ -60,7 +60,7 @@ export default function DashboardPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                    <Card className="hover:shadow-md transition-shadow duration-300 cursor-pointer">
                         <CardContent className="flex flex-col items-center justify-center gap-3 p-5">
                             <div className="flex items-center gap-2">
                                 <Images className="h-5 w-5 text-blue-500" />
@@ -86,7 +86,7 @@ export default function DashboardPage() {
                             {dashboardData?.recentTasks?.map((task) => (
                                 <div
                                     key={task.id}
-                                    className="flex items-center justify-between border-b border-gray-200 p-5 hover:shadow-lg transition-shadow duration-300 cursor-pointer last:border-b-0"
+                                    className="flex items-center justify-between border-b border-gray-200 p-5 hover:shadow-md transition-shadow duration-300 cursor-pointer last:border-b-0"
                                 >
                                     <p className="text-sm">
                                         <b>An Admin</b> added a new task:{" "}

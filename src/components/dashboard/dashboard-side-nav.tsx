@@ -25,7 +25,7 @@ export function DashboardSideNav() {
     ];
 
     return (
-        <div className="fixed top-[70px] min-w-[250px] left-0 h-screen bg-secondary shadow-sm border-r border-gray-200 z-40 hidden md:block">
+        <div className="fixed top-17.5 min-w-62.5 left-0 h-screen bg-secondary shadow-sm border-r border-gray-200 z-40 hidden md:block">
             <div className="p-3 flex flex-col gap-3">
                 {navItems.map((item) => (
                     <Link
