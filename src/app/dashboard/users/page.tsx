@@ -70,12 +70,14 @@ export default function UsersPage() {
         <div className="w-full">
             <div className="flex items-center justify-between">
                 <h1 className="text-xl font-bold">User Management</h1>
-                <Link href="/dashboard/users/add">
-                    <Button className="flex items-center gap-1">
-                        <Plus className="h-4 w-4" />
-                        Add User
-                    </Button>
-                </Link>
+                {currentUser?.role !== "VOLUNTEER" && (
+                    <Link href="/dashboard/users/add">
+                        <Button className="flex items-center gap-1">
+                            <Plus className="h-4 w-4" />
+                            Add User
+                        </Button>
+                    </Link>
+                )}
             </div>
 
             <div className="mt-8">
