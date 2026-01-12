@@ -32,3 +32,20 @@ export interface DashboardData {
   totalPosts?: number;
   recentTasks?: Task[];
 }
+
+export interface Event {
+  id: string;
+  name: string;
+  date: string;
+  description?: string;
+  time?: string;
+  location?: string;
+  registerLink?: string;
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  feedback: string;
+  imageUrl: string;
+}
