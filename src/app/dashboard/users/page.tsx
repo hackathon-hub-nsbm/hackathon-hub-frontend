@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Search } from "lucide-react";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -20,6 +21,7 @@ import { ConfirmDialog } from "@/components";
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const { user: currentUser } = useAuthStore();
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<string | null>(null);
@@ -36,6 +38,37 @@ export default function UsersPage() {
                 console.error("Error fetching users:", err);
             });
     };
+
+    const searchUsers = (query: string) => {
+        if (!query.trim()) {
+            getAllUsers();
+            return;
+        }
+
+        api
+            .get(`/api/v1/user/search?q=${encodeURIComponent(query)}`, {
+                withCredentials: true,
+            })
+            .then((res) => {
+                setUsers(res.data.data);
+            })
+            .catch((err) => {
+                console.error("Error searching users:", err);
+            });
+    };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+    };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            searchUsers(searchQuery);
+        }, 300);
+
+        return () => clearTimeout(timeout);
+    }, [searchQuery]);
 
     const handleDeleteClick = (userId: string) => {
         setUserToDelete(userId);
@@ -68,7 +101,7 @@ export default function UsersPage() {
 
     return (
         <div className="w-full">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4">
                 <h1 className="text-xl font-bold">User Management</h1>
                 {currentUser?.role !== "VOLUNTEER" && (
                     <Link href="/dashboard/users/add">
@@ -78,6 +111,19 @@ export default function UsersPage() {
                         </Button>
                     </Link>
                 )}
+            </div>
+
+            <div className="mb-6">
+                <div className="relative max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                        type="text"
+                        placeholder="Search users by username..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="pl-10"
+                    />
+                </div>
             </div>
 
             <div className="mt-8">
