@@ -5,9 +5,11 @@ import { usePathname } from "next/navigation";
 import {
     LayoutDashboard,
     ListChecks,
-    PlusSquare,
+    Images,
     Users,
     User,
+    Calendar,
+    MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,8 +21,10 @@ export function DashboardSideNav() {
     const navItems = [
         { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
         { href: "/dashboard/tasks", icon: ListChecks, label: "Tasks" },
-        // { href: "/dashboard/posts/create", icon: PlusSquare, label: "Create Post" },
+        { href: "/dashboard/posts", icon: Images, label: "Posts" },
         { href: "/dashboard/users", icon: Users, label: "Users" },
+        { href: "/dashboard/events", icon: Calendar, label: "Events" },
+        { href: "/dashboard/testimonials", icon: MessageSquare, label: "Testimonials" },
         { href: "/dashboard/profile", icon: User, label: "Profile" },
     ];
 
