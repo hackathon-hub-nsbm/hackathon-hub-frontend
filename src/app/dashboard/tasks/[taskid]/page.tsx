@@ -2,20 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, Edit } from "lucide-react";
 import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Task } from "@/types";
-import { ConfirmDialog } from "@/components";
+import { ConfirmDialog, EditTaskDialog } from "@/components";
 
 export default function TaskPage() {
     const params = useParams();
     const taskId = params.taskid as string;
     const [task, setTask] = useState<Task | null>(null);
     const [confirmOpen, setConfirmOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [subtaskToComplete, setSubtaskToComplete] = useState<string | null>(null);
 
     const fetchTask = () => {
@@ -68,16 +69,36 @@ export default function TaskPage() {
         setSubtaskToComplete(null);
     };
 
+    const handleEditClick = () => {
+        setEditDialogOpen(true);
+    };
+
+    const handleTaskUpdated = () => {
+        fetchTask();
+        setEditDialogOpen(false);
+    };
+
     return (
         <div className="w-full space-y-4">
             {/* Main Task */}
             <Card className="hover:shadow-md transition-shadow duration-300">
                 <CardContent className="p-5">
-                    <div className="flex justify-between items-center">
-                        <h1 className="text-2xl font-bold">{task.title}</h1>
-                        <Badge variant={task.completed ? "default" : "secondary"}>
-                            {task.completed ? "Completed" : "In Progress"}
-                        </Badge>
+                    <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                            <h1 className="text-2xl font-bold">{task.title}</h1>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleEditClick}
+                            >
+                                <Edit className="h-4 w-4" />
+                            </Button>
+                            <Badge variant={task.completed ? "default" : "secondary"}>
+                                {task.completed ? "Completed" : "In Progress"}
+                            </Badge>
+                        </div>
                     </div>
                     {task.description && (
                         <p className="mt-3 text-gray-600">{task.description}</p>
@@ -183,6 +204,15 @@ export default function TaskPage() {
                 title="Complete Subtask"
                 message="Do you want to mark this sub task as complete?"
             />
+
+            {task && (
+                <EditTaskDialog
+                    task={task}
+                    open={editDialogOpen}
+                    onClose={() => setEditDialogOpen(false)}
+                    onSuccess={handleTaskUpdated}
+                />
+            )}
         </div>
     );
 }

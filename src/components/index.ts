@@ -28,4 +28,10 @@ export { DashboardBottomNav } from "@/components/dashboard/dashboard-bottom-nav"
 export { AddUserForm } from "@/components/dashboard/add-user-form";
 export { AddTaskForm } from "@/components/dashboard/add-task-form";
 export { TaskList, TaskCard } from "@/components/dashboard/task-list";
-// export { CreatePostForm } from "@/components/dashboard/create-post-form";
+export { CreatePostForm } from "@/components/dashboard/create-post-form";
+export { EditEventDialog } from "@/components/dashboard/edit-event-dialog";
+export { EditTestimonialDialog } from "@/components/dashboard/edit-testimonial-dialog";
+export { AddEventForm } from "@/components/dashboard/add-event-form";
+export { AddTestimonialForm } from "@/components/dashboard/add-testimonial-form";
+export { EditPostDialog } from "@/components/dashboard/edit-post-dialog";
+export { EditTaskDialog } from "@/components/dashboard/edit-task-dialog";
