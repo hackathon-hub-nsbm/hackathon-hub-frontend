@@ -10,6 +10,7 @@ import {
     User,
     Calendar,
     MessageSquare,
+    Bot
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ export function DashboardSideNav() {
         { href: "/dashboard/events", icon: Calendar, label: "Events" },
         { href: "/dashboard/testimonials", icon: MessageSquare, label: "Testimonials" },
         { href: "/dashboard/profile", icon: User, label: "Profile" },
+        { href: "/dashboard/chat", icon: Bot, label: "Chat" },
     ];
 
     return (
